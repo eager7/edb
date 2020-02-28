@@ -2,9 +2,9 @@ package edb
 
 import (
 	"fmt"
-	"time"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
+	"time"
 )
 
 func Initialize(addr, user, password, dbName string, maxOpen int) (*gorm.DB, error) {
@@ -20,4 +20,3 @@ func Initialize(addr, user, password, dbName string, maxOpen int) (*gorm.DB, err
 
 	return gdb, err
 }
-

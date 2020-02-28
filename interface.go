@@ -4,7 +4,7 @@ const (
 	InsertPrefix  = "INSERT INTO "
 	InsertIgnore  = "INSERT IGNORE INTO "
 	InsertReplace = "REPLACE INTO "
-	OrmValue = "(?)"
+	OrmValue      = "(?)"
 )
 
 type DbMessage interface {
