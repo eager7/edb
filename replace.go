@@ -12,7 +12,7 @@ func BatchReplace(db *gorm.DB, batch []DbMessage, tName string) error {
 	if len(batch) == 0 {
 		return nil
 	}
-	sql, values := BatchReplaceSql(batch, tName)
+	sql, values := batchReplaceSql(batch, tName)
 	if len(values) == 0 {
 		return nil
 	}
@@ -23,10 +23,10 @@ func BatchReplace(db *gorm.DB, batch []DbMessage, tName string) error {
 }
 
 func Replace(db *gorm.DB, msg DbMessage) error {
-	return db.Exec(InsertReplace+msg.TableName()+msg.Column(), msg.Values()).Error
+	return db.Exec(InsertReplace+msg.TableName()+msg.Column()+OrmValue, msg.Values()).Error
 }
 
-func BatchReplaceSql(messages []DbMessage, tName string) (sql string, values []interface{}) {
+func batchReplaceSql(messages []DbMessage, tName string) (sql string, values []interface{}) {
 	if len(messages) == 0 {
 		return "", nil
 	}

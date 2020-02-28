@@ -12,7 +12,7 @@ func BatchInsert(db *gorm.DB, batch []DbMessage, tName string, ignore bool) erro
 	if len(batch) == 0 {
 		return nil
 	}
-	sql, values := BatchInsertSql(batch, tName, ignore)
+	sql, values := batchInsertSql(batch, tName, ignore)
 	if len(values) == 0 {
 		return nil
 	}
@@ -24,13 +24,13 @@ func BatchInsert(db *gorm.DB, batch []DbMessage, tName string, ignore bool) erro
 
 func Insert(db *gorm.DB, msg DbMessage, ignore bool) error {
 	if ignore {
-		return db.Exec(InsertIgnore+msg.TableName()+msg.Column(), msg.Values()).Error
+		return db.Exec(InsertIgnore+msg.TableName()+msg.Column()+OrmValue, msg.Values()).Error
 	} else {
-		return db.Exec(InsertPrefix+msg.TableName()+msg.Column(), msg.Values()).Error
+		return db.Exec(InsertPrefix+msg.TableName()+msg.Column()+OrmValue, msg.Values()).Error
 	}
 }
 
-func BatchInsertSql(messages []DbMessage, tName string, ignore bool) (sql string, values []interface{}) {
+func batchInsertSql(messages []DbMessage, tName string, ignore bool) (sql string, values []interface{}) {
 	if len(messages) == 0 {
 		return "", nil
 	}
